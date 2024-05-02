@@ -31,6 +31,8 @@ racket compiler.rkt -v test-programs/sum1.irv
 
 (Also pass in -m for Mac)
 
+ir-virtual intends to make instructions easier, and it does this by putting all actions into a virtual register while stack allocating everything. Comparing it to x86 makes it much simpler to understand, although ir-virtual is much more restrictive in nature. x86 allows for more than just registers, which makes it much more intuitive and faster to run. ir-virtual works as intended, but will take much longer compared to other architectures.
+
 [ Question 2 ] 
 
 For this task, you will write four new .ifa programs. Your programs

@@ -338,7 +338,7 @@ The compiler does not check if a symbol is defined before interpeting it. For ex
 
 If we bind a primative operation to a variable then the compiler throws an error. For example `(let* ([e0 +]) (e0 1 1))` spits out an error. The same thing happens with `(let* ([#t 4]) (+ #t 3))`.
 
-If you input a number that is greater than 32 bits, say `9999999999999999999999`, it puts out an error message.
+If you input a number that is greater than 32 bits, say `9999999999999999999999`, it says there is no matching clause.
 
 [ High Level Reflection ] 
 

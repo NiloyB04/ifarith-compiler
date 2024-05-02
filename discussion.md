@@ -336,7 +336,7 @@ For `const.ifa`, the program had `let` statements in the form of `[x0 = 5]`. Bec
 
 The compiler does not check if a symbol is defined before interpeting it. For example inputing `(+ a a)` into the compiler will spit out an assembly file. However, a is not defined so it should not be possible to create an assembly file. 
 
-If we bind a primative operation to a variable then the compiler throws an error. For example `(let* ([e0 +]) (e0 1 1))` spits out an error. The same thing happens with `(let* ([#t 4])   (+ #t 3))`.
+If we bind a primative operation to a variable then the compiler throws an error. For example `(let* ([e0 +]) (e0 1 1))` spits out an error. The same thing happens with `(let* ([#t 4]) (+ #t 3))`.
 
 
 

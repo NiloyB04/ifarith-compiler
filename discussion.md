@@ -91,6 +91,8 @@ there could be more?
 In answering this question, you must use specific examples that you
 got from running the compiler and generating an output.
 
+For this question, we ran `if1.ifa`. The first pass, `ifarith-tiny`, restates the program while dissecting each part of it until it can't go any further. For example, the statement `'(print (+ 1 2))` takes the following path: `'(print (+ 1 2))` -> `'(+ 1 2)` -> `1` -> `2`. The next pass, `anf`, assigns each term into a `let` statement with a virtual address in the order they appear in the program. For example, `1` is assigned to `x1254`, then the if is called on `x1254`, with the next instance of `1` being assigned to `x1255`, and so on. In `ir-virtual`, `x86` operations are introduced while still maintaining the virtual addresses of `anf`. Each operation is assigned to a label with a 4 digit number (ex: `(label lab1261)`). `(label lab1266)` corresponds to `(print x1257)`, which is the original expression of `(+ 1 2)`. Finally, it is translated to `x86`, which contains assembly programs that moves each value into various registers. Labels `lab1263` and `lab1267` act as the `jz` and `jmp` headers here. `esi` originally holds the value `1`, before it is moved into `[rbp]-72` so it can hold `0`. I think each pass serves an intended purpose in this compiler, making sure no stone goes unturned. Because of this, I don't think there is any more passes that could be done here.
+
 [ Question 4 ] 
 
 This is a larger project, compared to our previous projects. This

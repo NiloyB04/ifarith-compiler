@@ -332,6 +332,8 @@ ask me.
 Your team will receive a small bonus for being the first team to
 report a unique bug (unique determined by me).
 
+For `const.ifa`, the program had `let` statements in the form of `[x0 = 5]`. Because of this, when this file was run through the compiler, it immediately outputted an error message saying there was no matching clause and terminated.
+
 [ High Level Reflection ] 
 
 In roughly 100-500 words, write a summary of your findings in working

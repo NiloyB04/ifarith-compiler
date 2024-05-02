@@ -1,12 +1,4 @@
 ((mov-lit r0 5)
-<<<<<<< HEAD
-   (mov-lit r1 8)
-   (mov-lit r2 0)
-   (add r2 r1)
-   (add r2 r0)
-   (print r2))
-=======
  (mov-lit r1 9)
  (add r0 r1)
  (print r0))
->>>>>>> 0b0e224c31cd00c73c3db99fe866003de52c8480

@@ -79,6 +79,205 @@ carefully the relevance of each of the intermediate representations.
 For this question, please add your `.ifa` programs either (a) here or
 (b) to the repo and write where they are in this file.
 
+[Program 1]
+Input (q2_1.ifa):`((let* ([a 2] [b 3]) (* a b)))`
+Output 
+```
+ifarith-tiny:
+'(let ((a 2)) (let ((b 3)) (* a b)))
+'(let ((a 2)) (let ((b 3)) (* a b)))
+2
+'(let ((b 3)) (* a b))
+3
+'(* a b)
+'a
+'b
+anf:
+'(let ((x1254 2))
+   (let ((a x1254))
+     (let ((x1255 3)) (let ((b x1255)) (let ((x1256 (* a b))) x1256)))))
+ir-virtual:
+'(((label lab1257) (mov-lit x1254 2))
+  ((label lab1258) (mov-reg a x1254))
+  ((label lab1259) (mov-lit x1255 3))
+  ((label lab1260) (mov-reg b x1255))
+  ((label lab1261) (mov-reg x1256 a))
+  (imul x1256 b)
+  (return x1256))
+x86:
+section .data
+	int_format db "%ld",10,0
+	global _main
+	extern _printf
+section .text
+_start:	call _main
+	mov rax, 60
+	xor rdi, rdi
+	syscall
+_main:	push rbp
+	mov rbp, rsp
+	sub rsp, 80
+	mov esi, 2
+	mov [rbp-24], esi
+	mov esi, [rbp-24]
+	mov [rbp-32], esi
+	mov esi, 3
+	mov [rbp-16], esi
+	mov esi, [rbp-16]
+	mov [rbp-40], esi
+	mov esi, [rbp-32]
+	mov [rbp-8], esi
+	mov edi, [rbp-40]
+	mov eax, [rbp-8]
+	imul eax, edi
+	mov [rbp-8], eax
+	mov rax, [rbp-8]
+	jmp finish_up
+finish_up:	add rsp, 80
+	leave 
+	ret 
+```
+[Program 2]
+Input (q2_2.ifa): `(+ 1 (* 2 (+ 3 4)))`
+Output
+``` 
+ifarith-tiny:
+'(+ 1 (* 2 (+ 3 4)))
+'(+ 1 (* 2 (+ 3 4)))
+1
+'(* 2 (+ 3 4))
+2
+'(+ 3 4)
+3
+4
+anf:
+'(let ((x1254 1))
+   (let ((x1255 2))
+     (let ((x1256 3))
+       (let ((x1257 4))
+         (let ((x1258 (+ x1256 x1257)))
+           (let ((x1259 (* x1255 x1258)))
+             (let ((x1260 (+ x1254 x1259))) x1260)))))))
+ir-virtual:
+'(((label lab1261) (mov-lit x1254 1))
+  ((label lab1262) (mov-lit x1255 2))
+  ((label lab1263) (mov-lit x1256 3))
+  ((label lab1264) (mov-lit x1257 4))
+  ((label lab1265) (mov-reg x1258 x1256))
+  (add x1258 x1257)
+  ((label lab1266) (mov-reg x1259 x1255))
+  (imul x1259 x1258)
+  ((label lab1267) (mov-reg x1260 x1254))
+  (add x1260 x1259)
+  (return x1260))
+x86:
+section .data
+        int_format db "%ld",10,0
+
+
+        global _main
+        extern _printf
+section .text
+
+
+_start: call _main
+        mov rax, 60
+        xor rdi, rdi
+        syscall
+
+
+_main:  push rbp
+        mov rbp, rsp
+        sub rsp, 112
+        mov esi, 1
+        mov [rbp-56], esi
+        mov esi, 2
+        mov [rbp-48], esi
+        mov esi, 3
+        mov [rbp-40], esi
+        mov esi, 4
+        mov [rbp-32], esi
+        mov esi, [rbp-40]
+        mov [rbp-24], esi
+        mov edi, [rbp-32]
+        mov eax, [rbp-24]
+        add eax, edi
+        mov [rbp-24], eax
+        mov esi, [rbp-48]
+        mov [rbp-16], esi
+        mov edi, [rbp-24]
+        mov eax, [rbp-16]
+        imul eax, edi
+        mov [rbp-16], eax
+        mov esi, [rbp-56]
+        mov [rbp-8], esi
+        mov edi, [rbp-16]
+        mov eax, [rbp-8]
+        add eax, edi
+        mov [rbp-8], eax
+        mov rax, [rbp-8]
+        jmp finish_up
+finish_up:      add rsp, 112
+        leave 
+        ret 
+```
+[Program 3]
+Input (q2_3.ifa): `(let* ([a 3]) a)`
+Output:
+
+```
+Input source tree in IfArith:
+'(let* ((a 3)) a)
+ifarith-tiny:
+'(let ((a 3)) a)
+'(let ((a 3)) a)
+3
+'a
+```
+ifarith-tiny is needed in order to convert down to administrative normal form. Here the code is simplified, the amount of instructions is condensed down in order to contain the same logical value while being simplier to compile. The goal is to convert the instructions to act on virtual registers so before that we must simplify the instructions themselves.
+```
+anf:
+'(let ((x1254 3)) (let ((a x1254)) a))
+```
+In administrative normal form we preform another abstruction on the code. Since values must be stored in registers and then registers assigned to variables this pass directly abstracts the code in this way. For example we cant to `a = 5` we must assign 5 to a register and then define a as that register.
+```
+ir-virtual:
+'(((label lab1255) (mov-lit x1254 3))
+  ((label lab1256) (mov-reg a x1254))
+  (return a))
+```
+In this pass we finally convert the instructions down to a condensed set. In prior passes we were just munipulating the values and ways variables were assigned now we can begin to compile the instructions to known mappings that can be easily converted to assembly.
+```
+x86:
+section .data
+        int_format db "%ld",10,0
+
+
+        global _main
+        extern _printf
+section .text
+
+
+_start: call _main
+        mov rax, 60
+        xor rdi, rdi
+        syscall
+
+
+_main:  push rbp
+        mov rbp, rsp
+        sub rsp, 32
+        mov esi, 3
+        mov [rbp-8], esi
+        mov esi, [rbp-8]
+        mov [rbp-16], esi
+        mov rax, [rbp-16]
+        jmp finish_up
+finish_up:      add rsp, 32
+        leave 
+        ret 
+```
+In this final pass we produce the final assembly code, this is essentially just a final conversion of the condensed and simplified instructiuons and values from the previous step.
 [ Question 3 ] 
 
 Describe each of the passes of the compiler in a slight degree of
@@ -143,3 +342,4 @@ nuts and bolts of code, try to use this experience as a way to think
 about how you would approach doing group code critique. What would you
 do differently next time, what did you learn?
 
+In this project, our biggest takeaway is thinking about compilers as a series of reductions. In our other classes when we write C or ASM code we use a compiler such as GCC as a black box never questioning what goes on behind the scenes. While this project does not compile C, it provides an analogous experience for viewing reduction on code. We learned how to apply our knowledge of racket operations such as folding and tail recursion to compile a program. This required congruent thinking to other projects, as we were essentially just employing pattern matching with recursion. The most challenging part of this project was writing .irv files, as here we must think in terms of the processor and how to manipulate registers rather than the typical control flow that we are used to. If we had to do this project over again we would spend more time looking at the code and seeing where common code patterns are used. This way we would have a deeper understanding of how the reductions are done. Another problem we had was thinking about racket reduction not in terms of the lambda calculus. Coming off of project 4 and the exam, we were thinking about racket as an abstracted lambda calculus, so when we would go to reduce code it made sense to convert to the church encodings. Nevertheless, if we did that it would be a nightmare to compile to virtual code. This required a complete reworking of how we read racket code and expected it to be produced.

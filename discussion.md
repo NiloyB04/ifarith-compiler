@@ -31,6 +31,34 @@ racket compiler.rkt -v test-programs/sum1.irv
 
 (Also pass in -m for Mac)
 
+sub.irv
+
+(mov-lit r0 5)
+(mov-lit r1 8)   
+(mov-lit r2 0)    
+(sub r2 r1 r0)    
+(print r2)
+
+mul.irv
+
+   (mov-lit r0 5)
+   (mov-lit r1 8)
+   (mov-lit r2 0)
+   (mov-lit r3 0)
+loop:
+   (add r2 r0)
+   (add r3 1)
+   (cmp r3 r1)
+   (jlt loop)
+   (print r2)
+
+div.irv
+
+(mov-lit r0, 5)
+(mov-lit r1, 8)
+(div r1, r0, r2)
+(print r2)
+
 ir-virtual intends to make instructions easier, and it does this by putting all actions into a virtual register while stack allocating everything. Comparing it to x86 makes it much simpler to understand, although ir-virtual is much more restrictive in nature. x86 allows for more than just registers, which makes it much more intuitive and faster to run. ir-virtual works as intended, but will take much longer compared to other architectures.
 
 [ Question 2 ] 

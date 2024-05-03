@@ -133,7 +133,7 @@
     [`(,(? bop? bop) ,e0 ,e1) `(,bop ,(ifarith->ifarith-tiny e0) ,(ifarith->ifarith-tiny e1))]
     [`(,(? uop? uop) ,e) `(,uop ,(ifarith->ifarith-tiny e))]
     [`(let* ([,(? symbol? x0) ,e0] ...) ,e-body)
-     (let*->let x0 e0 e-body)]
+     (let*->let x0 (ifarith->ifarith-tiny e0) (ifarith->ifarith-tiny e-body))]
     ;; print an arbitrary expression (must be a number at runtime)
     [`(print ,_) e]
     ;; and/or, with short-circuiting semantics

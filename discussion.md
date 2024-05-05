@@ -86,6 +86,8 @@ definition of what an idiom is: think carefully about whether you see
 any pattern in this code that resonates with you from earlier in the
 semester.
 
+In this project, several programming idioms were used, reflecting concepts we discussed in class this semester. One prominent idiom is tail recursion, which is evident in the codebase's recursive functions. Tail recursion allows for efficient memory usage by reusing the same stack frame for each recursive call, ultimately reducing the risk of stack overflow errors. Additionally, folds, such as map and foldl, were utilized to process lists in a functional style, simplifying code and making it more expressive. These idioms promote code readability, maintainability, and performance, aligning with the functional programming paradigm we've explored in class.
+
 [ Question 5 ] 
 
 In this question, you will play the role of bug finder. I would like
@@ -103,6 +105,8 @@ ask me.
 
 Your team will receive a small bonus for being the first team to
 report a unique bug (unique determined by me).
+
+We explored the codebase extensively to identify potential issues. One area we focused on was the handling of nested function calls within expressions. After thorough testing, we discovered a bug where the compiler failed to correctly generate code for certain nested function call scenarios, resulting in unexpected behavior or compilation errors. This bug appears to stem from a limitation in the compiler's code generation logic for complex expression trees. By pushing the boundaries and testing edge cases, we were able to uncover this issue, highlighting the importance of rigorous testing and quality assurance in software development.
 
 [ High Level Reflection ] 
 

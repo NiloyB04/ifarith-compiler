@@ -74,7 +74,8 @@ Stage3: input transformed into ANF and for output: (let ([v1 2] [v2 8]) (+ v1 v2
 Stage4: all the values and operations are assigned to a virtual register, the output is 'mov-lit v1, 2'; 'mov-lit v2, 8'; 'add v3, v1, v2'.    
 Stage5: Converts virtual registers into x86 registers.    
 Step6: Converts x86 into NASM assembly and returns 10.    
-Stage1 and Stage2 were redundant due to this being a basic arithmetic operation.
+Stage1 and Stage2 were redundant due to this being a basic arithmetic operation.    
+
 [ Question 4 ] 
 
 This is a larger project, compared to our previous projects. This

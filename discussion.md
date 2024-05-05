@@ -68,6 +68,7 @@ there could be more?
 In answering this question, you must use specific examples that you
 got from running the compiler and generating an output.
 
+For arith3.ifa: Stage1: '+' is 'bop?', '2' and '8' are the literals. \nStage2: arith3 input is a basic arithmetic operation. \nStage3: input transformed into ANF and for output: (let ([v1 2] [v2 8]) (+ v1 v2)). \nStage4: all the values and operations are assigned to a virtual register, the output is 'mov-lit v1, 2'; 'mov-lit v2, 8'; 'add v3, v1, v2'. \nStage5: Converts virtual registers into x86 registers. \nStep6: Converts x86 into NASM assembly and returns 10. \nStage1 and Stage2 were redundant due to this being a basic arithmetic operation.
 [ Question 4 ] 
 
 This is a larger project, compared to our previous projects. This

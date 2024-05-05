@@ -51,9 +51,9 @@ carefully the relevance of each of the intermediate representations.
 For this question, please add your `.ifa` programs either (a) here or
 (b) to the repo and write where they are in this file.
 
-programs in the test programs file: 60.ifa, arith3.ifa, arith4.ifa
-60.ifa input: 60  output: 60
-arith3.ifa input: (+ 2 8)  output: 10
+programs in the test programs file: 60.ifa, arith3.ifa, arith4.ifa   
+60.ifa input: 60  output: 60    
+arith3.ifa input: (+ 2 8)  output: 10    
 arith4.ifa input: (* (- 5 3) 7)  output: 14
 
 [ Question 3 ] 

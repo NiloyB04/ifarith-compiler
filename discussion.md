@@ -31,6 +31,8 @@ racket compiler.rkt -v test-programs/sum1.irv
 
 (Also pass in -m for Mac)
 
+ir-virtual puts all actions through virtual registers for computation. Its shorter and simpler so it takes less processing power and runs faster. Ir-virtual is more structured than x86 which makes it have more restrictions. Cons: inability to manipulate all memory addresses and worse performance in large complex programs.
+
 [ Question 2 ] 
 
 For this task, you will write three new .ifa programs. Your programs
